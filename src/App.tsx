@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [image, setimage] = useState<string | null>();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        type="file"
+        onChange={(e) => {
+          let file = e.target.files?.item(0);
+          if (file) {
+            let url = URL.createObjectURL(file);
+            setimage(url);
+          }
+        }}
+      />
+      {image && <img src={image} alt="" />}
     </div>
   );
 }
